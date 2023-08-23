@@ -11,7 +11,7 @@
     #subnet_id: "subnet-0123456789abcdef0"  # Replace with your subnet ID
 
   tasks:
-    - name: Create EC2 Instance
+    - name: create EC2 Instance
       ec2:
         region: "{{ region }}"
         instance_type: "{{ instance_type }}"
