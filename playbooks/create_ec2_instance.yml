@@ -3,7 +3,9 @@
   hosts: localhost
   gather_facts: False
   vars:
-    region: "us-east-1"
+    regions: 
+      - "us-east-1"
+      - "us-east-2"
     instance_type: "t2.micro"
     ami_id: "ami-0261755bbcb8c4a84"
     key_name: "testing"
@@ -11,15 +13,17 @@
   tasks:
     - name: create EC2 Instance
       amazon.aws.ec2_instance:
-        region: "{{ region }}"
+        region: "{{ regions }}"
         instance_type: "{{ instance_type }}"
         image_id: "{{ ami_id }}"
         key_name: "{{ key_name }}"
         security_groups: "{{ security_group }}"
         wait: yes
+        count: "{{ instances_per_region }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
       register: ec2_instance
+      loop: "{{ regions }}"
 
 
     - name: Display EC2 Instance Information
