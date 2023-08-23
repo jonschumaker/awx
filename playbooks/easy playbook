@@ -1,0 +1,4 @@
+---
+
+# Gather information about all instances
+- ec2_instance_info:
