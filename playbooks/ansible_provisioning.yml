@@ -4,14 +4,14 @@
   tasks:
   - name: launching AWS instance using Ansible
     ec2:
-      key_name: aws_instance_Ansible
+      key_name: testing
       instance_type: t2.micro
-      image: ami-0dacb0c129b49f529
-      region: us-east-2
+      image: ami-0261755bbcb8c4a84
+      region: us-east-1
       wait: yes
       group: Ansible
       count: 1
       vpc_subnet_id: default
       assign_public_ip: yes
-      aws_access_key: ***********xxxxxxxx
-      aws_secret_key: ***********xxxxxxxx
+      aws_access_key: {{secret_access}}
+      aws_secret_key: {{secret_key}}
