@@ -3,11 +3,11 @@
   hosts: localhost
   gather_facts: False
   vars:
-    region: "us-east-1"  # Change this to your desired region
+    region: "us-east-1"
     instance_type: "t2.micro"
-    ami_id: "ami-0261755bbcb8c4a84"  # Replace with your desired AMI ID
-    key_name: "testing"  # Replace with your EC2 key pair name
-    security_group: "sg-0e5c4af056257477e"  # Replace with your security group ID
+    ami_id: "ami-0261755bbcb8c4a84"
+    key_name: "testing"
+    security_group: "sg-0e5c4af056257477e"
   tasks:
     - name: create EC2 Instance
       amazon.aws.ec2_instance:
