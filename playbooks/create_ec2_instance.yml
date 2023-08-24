@@ -4,8 +4,8 @@
   gather_facts: False
   vars:
     regions: 
-      - "us-east-1"
-      - "us-east-2"
+      - us-east-1
+      - us-east-2
     instance_type: "t2.micro"
     ami_id: "ami-0261755bbcb8c4a84"
     key_name: "testing"
