@@ -1,0 +1,43 @@
+---
+- name: Start EC2 instances in multiple regions
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Set AWS credentials
+      set_fact:
+        aws_access_key: "YOUR_ACCESS_KEY" #add these in the template variable parameters
+        aws_secret_key: "YOUR_SECRET_KEY"
+      delegate_to: localhost
+
+    - name: Start EC2 instances
+      amazon.aws.ec2_instance:
+        region: "{{ item.region }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        count: "{{ item.count }}"
+        instance_type: "{{ item.instance_type }}"
+        key_name: "{{ item.key_name }}"
+        image_id: "{{ item.image_id }}"
+        wait: yes
+      #need to change the ami ids and key names
+      loop:
+        - { region: "us-east-1", count: 2, instance_type: "t2.micro", key_name: "your-key", image_id: "ami-12345678" }
+        - { region: "us-west-2", count: 2, instance_type: "t2.micro", key_name: "your-key", image_id: "ami-87654321" }
+
+    - name: Gather instance facts
+      amazon.aws.ec2_instance_info:
+        region: "{{ item.region }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        instance_ids: "{{ item.instance_ids }}"
+      register: ec2_facts
+      loop: "{{ ec2_instances.results }}"
+      loop_control:
+        loop_var: item
+
+    - name: Print instance IP addresses
+      debug:
+        msg: "Instance in {{ item.region }} has IP address: {{ item.instances[0].public_ip }}"
+      loop: "{{ ec2_facts.results }}"
+      loop_control:
+        loop_var: item
