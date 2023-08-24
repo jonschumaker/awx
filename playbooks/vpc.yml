@@ -19,6 +19,8 @@
         state: present
         az: ap-southeast-3a
         cidr: 10.0.1.0/28
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
       register: az1_apse3
 
     - name: create subnet for second az
@@ -27,6 +29,8 @@
         state: present
         az: ap-southeast-3b
         cidr: 10.0.2.0/28
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
       register: az2_apse3
 
     - name: create subnet for third az
@@ -35,17 +39,23 @@
         state: present
         az: ap-southeast-3c
         cidr: 10.0.3.0/28
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
       register: az3_apse3
 
     - name: create internet gateway
       amazon.aws.ec2_vpc_igw:
         vpc_id: "{{ vpc.vpc.id }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
         state: present
       register: igw
 
     - name: create custom route table
       amazon.aws.ec2_vpc_route_table:
         vpc_id: "{{ vpc.vpc.id }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
         region: ap-southeast-3
         subnets:
           - "{{ az1_apse3.subnet.id }}"
@@ -62,6 +72,8 @@
         description: allow ssh and http
         vpc_id: "{{ vpc.vpc.id }}"
         region: ap-southeast-3
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
         rules:
           - proto: tcp
             ports: 22
