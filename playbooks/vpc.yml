@@ -4,17 +4,14 @@
   connection: local
   gather_facts: no
   tasks:
-    - name: Set AWS credentials
-      set_fact:
-        aws_access_key: "{{ aws_access_key }}"
-        aws_secret_key: "{{ aws_secret_key }}"
-      delegate_to: localhost
 
     - name: create vpc
       amazon.aws.ec2_vpc_net:
         name: custom_vpc
         cidr_block: 10.0.0.0/16
         region: ap-southeast-3
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
       register: vpc
 
     - name: create subnet for first az
