@@ -8,7 +8,7 @@
   tasks:
     - name: Create VPC
       amazon.aws.ec2_vpc_net:
-        name: "MyVPC"
+        name: "MyVPC10"
         state: present
         cidr_block: "10.0.0.0/16"
         region: "{{ region }}"
@@ -68,6 +68,6 @@
             cidr_ip: 0.0.0.0/0
       register: security_group
 
-    - name: Print VPC ID and Subnet IDs
-      debug:
-        msg: "VPC ID: {{ vpc.vpc.id }}, Subnet IDs: {{ subnets.results | map(attribute='id') | join(', ') }}"
+#    - name: Print VPC ID and Subnet IDs
+#      debug:
+#        msg: "VPC ID: {{ vpc.vpc.id }}, Subnet IDs: {{ subnets.results | map(attribute='id') | join(', ') }}"
