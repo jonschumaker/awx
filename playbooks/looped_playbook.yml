@@ -7,6 +7,7 @@
       set_fact:
         aws_access_key: "YOUR_ACCESS_KEY" #add these in the template variable parameters
         aws_secret_key: "YOUR_SECRET_KEY"
+        group: "webservices_A"
       delegate_to: localhost
 
     - name: Start EC2 instances
@@ -14,6 +15,7 @@
         region: "{{ item.region }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
+        group: "{{ groupname }}"
         count: "{{ item.count }}"
         instance_type: "{{ item.instance_type }}"
         key_name: "{{ item.key_name }}"
