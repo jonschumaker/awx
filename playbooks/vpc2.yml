@@ -41,19 +41,26 @@
           gateway_id: "{{ vpc.gateway_id }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
+      register: igw
 
-    - name: Create Route Table and Associate Subnets with Route Table
+    - name: Create Route Table
       amazon.aws.ec2_vpc_route_table:
         vpc_id: "{{ vpc.vpc.id }}"
         region: us-east-1
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
-        subnet_id: "{{ subnets.subnet.id }}"
-        route_table_id: "{{ route_table.id }}"
-      loop: "{{ subnets.subnet.id }}"
+      register: route_table
+
+    - name: Associate Subnets with Route Table
+      amazon.aws.ec2_vpc_route_table:
+        subnet_id: "{{ item.subnet.id }}"
+        route_table_id: "{{ route_table.route_table.id }}"
+        region: us-east-1
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      loop: "{{ vpc.subnets }}"
       loop_control:
         loop_var: item
-      register: route_table
 
     - name: Create Security Group
       amazon.aws.ec2_group:
