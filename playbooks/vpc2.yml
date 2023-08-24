@@ -11,7 +11,7 @@
 
     - name: Create VPC
       amazon.aws.ec2_vpc_net:
-        name: MyVPC4
+        name: MyVPC5
         cidr_block: 10.0.0.0/16
         region: us-east-1
         aws_access_key: "{{ aws_access_key }}"
@@ -28,9 +28,9 @@
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
       loop:
-        - "us-east-1a"
-        - "us-east-1b"
-        - "us-east-1c"
+        - { cidr: 10.0.1.0/24, az: us-east-1a }
+        - { cidr: 10.0.2.0/24, az: us-east-1b }
+        - { cidr: 10.0.3.0/24, az: us-east-1c }
       register: subnets
 
     - name: Create Internet Gateway
