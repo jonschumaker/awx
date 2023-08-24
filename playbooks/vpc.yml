@@ -8,7 +8,6 @@
       set_fact:
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
-        group: "webservices_A"
       delegate_to: localhost
 
     - name: create vpc
