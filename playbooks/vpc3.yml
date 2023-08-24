@@ -23,7 +23,7 @@
         region: "{{ region }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
-      register: igw
+      register: vpc_igw
 
     - name: Create Subnets
       amazon.aws.ec2_vpc_subnet:
@@ -47,7 +47,7 @@
           Name: "PublicRouteTable"
         routes:
           - dest: "0.0.0.0/0"
-            gateway_id: "{{ igw.id }}"
+            gateway_id: "{{ vpc_igw.gateway_id }}"
         region: "{{ region }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
