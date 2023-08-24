@@ -36,9 +36,7 @@
       amazon.aws.ec2_vpc_igw:
         vpc_id: "{{ vpc.vpc.id }}"
         region: us-east-1
-        routes:
-        - dest: 0.0.0.0/0
-          gateway_id: "{{ vpc.gateway_id }}"
+        state: present
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
       register: igw
