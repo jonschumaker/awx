@@ -41,7 +41,6 @@
           gateway_id: "{{ igw.gateway_id }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
-      register: igw
 
     - name: Create Route Table and Associate Subnets with Route Table
       amazon.aws.ec2_vpc_route_table:
