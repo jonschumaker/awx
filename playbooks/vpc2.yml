@@ -19,7 +19,7 @@
       register: vpc
 
     - name: Create Subnets
-      ec2_vpc_subnet:
+      amazon.aws.ec2_vpc_subnet:
         vpc_id: "{{ vpc.vpc.id }}"
         cidr: "{{ item.cidr }}"
         az: "{{ item.az }}"
