@@ -48,7 +48,7 @@
         aws_secret_key: "{{ aws_secret_key }}"
         subnet_id: "{{ item.subnet.id }}"
         route_table_id: "{{ route_table.id }}"
-      loop: "{{ vpc.subnets }}"
+      loop: "{{ vpc.subnet.id }}"
       loop_control:
         loop_var: item
       register: route_table
