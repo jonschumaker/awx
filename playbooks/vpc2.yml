@@ -48,7 +48,7 @@
       register: route_table
 
     - name: Associate Subnets with Route Table
-      amazon.aws.ec2_vpc_subnet_route_table:
+      amazon.aws.ec2_vpc_route_table:
         subnet_id: "{{ item.subnet.id }}"
         route_table_id: "{{ route_table.route_table.id }}"
         region: ap-southeast-3
