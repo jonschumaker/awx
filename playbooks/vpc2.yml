@@ -11,7 +11,7 @@
 
     - name: Create VPC
       amazon.aws.ec2_vpc_net:
-        name: MyVPC2
+        name: MyVPC3
         cidr_block: 10.0.0.0/16
         region: us-east-1
         aws_access_key: "{{ aws_access_key }}"
