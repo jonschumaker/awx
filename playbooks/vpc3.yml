@@ -28,16 +28,16 @@
     - name: Create Subnets
       amazon.aws.ec2_vpc_subnet:
         vpc_id: "{{ vpc.vpc.id }}"
-        cidr: "10.0.1.0/24"
-        availability_zone: "{{ item }}"
+        cidr: "{{ item.cidr }}"
+        az: "{{ item.az }}"
         state: present
         region: "{{ region }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
       loop:
-        - "us-east-1a"
-        - "us-east-1b"
-        - "us-east-1c"
+        - { cidr: 10.0.1.0/24, az: us-east-1a }
+        - { cidr: 10.0.2.0/24, az: us-east-1b }
+        - { cidr: 10.0.3.0/24, az: us-east-1c }
       register: subnets
 
     - name: Create Route Table
