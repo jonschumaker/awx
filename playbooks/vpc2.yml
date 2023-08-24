@@ -38,7 +38,7 @@
         region: us-east-1
         routes:
         - dest: 0.0.0.0/0
-          gateway_id: "{{ igw.gateway_id }}"
+          gateway_id: "{{ vpc.gateway_id }}"
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
 
