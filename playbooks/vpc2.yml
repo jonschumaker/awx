@@ -10,7 +10,7 @@
       delegate_to: localhost
 
     - name: Create VPC
-      ec2_vpc_net:
+      amazon.aws.ec2_vpc_net:
         name: MyVPC
         cidr_block: 10.0.0.0/16
         region: ap-southeast-3
@@ -19,7 +19,7 @@
       register: vpc
 
     - name: Create Subnets
-      ec2_vpc_subnet:
+      amazon.aws.ec2_vpc_subnet:
         vpc_id: "{{ vpc.vpc.id }}"
         cidr: "{{ item.cidr }}"
         az: "{{ item.az }}"
@@ -32,7 +32,7 @@
         - { cidr: 10.0.3.0/24, az: ap-southeast-3c }
 
     - name: Create Internet Gateway
-      ec2_vpc_igw:
+      amazon.aws.ec2_vpc_igw:
         vpc_id: "{{ vpc.vpc.id }}"
         region: ap-southeast-3
         aws_access_key: "{{ aws_access_key }}"
@@ -40,7 +40,7 @@
       register: igw
 
     - name: Create Route Table
-      ec2_vpc_route_table:
+      amazon.aws.ec2_vpc_route_table:
         vpc_id: "{{ vpc.vpc.id }}"
         region: ap-southeast-3
         aws_access_key: "{{ aws_access_key }}"
@@ -48,7 +48,7 @@
       register: route_table
 
     - name: Associate Subnets with Route Table
-      ec2_vpc_subnet_route_table:
+      amazon.aws.ec2_vpc_subnet_route_table:
         subnet_id: "{{ item.subnet.id }}"
         route_table_id: "{{ route_table.route_table.id }}"
         region: ap-southeast-3
@@ -59,7 +59,7 @@
         loop_var: item
 
     - name: Create Security Group
-      ec2_group:
+      amazon.aws.ec2_group:
         name: MySecurityGroup
         description: Allow SSH and HTTP traffic
         vpc_id: "{{ vpc.vpc.id }}"
