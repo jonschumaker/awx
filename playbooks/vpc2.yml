@@ -28,9 +28,9 @@
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
       loop:
-        - "ap-southeast-2a"
-        - "ap-southeast-2b"
-        - "ap-southeast-2c"
+        - "us-east-1a"
+        - "us-east-1b"
+        - "us-east-1c"
       register: subnets
 
     - name: Create Internet Gateway
