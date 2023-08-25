@@ -5,4 +5,5 @@ collections:
   - name: community.aws
   - name: ansible.netcommon
   - name: community.azure
+  - name: azure.azcollection
     source: https://galaxy.ansible.com
