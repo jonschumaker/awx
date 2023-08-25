@@ -4,7 +4,7 @@
   gather_facts: False
   tasks:
     - name: Set Azure credentials
-      azure.azcollection.azure_rm_registrationdefinition:
+      azure.azcollection.azure_rm_adpassword:
         client_id: '{{ lookup("env", "AZURE_CLIENT_ID") }}'
         secret: '{{ lookup("env", "AZURE_SECRET") }}'
         tenant: '{{ lookup("env", "AZURE_TENANT") }}'
