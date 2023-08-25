@@ -20,8 +20,8 @@
         security_groups: "{{ security_group }}"
         wait: yes
         count: "{{ instances_per_region }}"
-        aws_access_key: "AWS_ACCESS_KEY_ID"
-        aws_secret_key: "AWS_SECRET_ACCESS_KEY"
+        aws_access_key: '{{ lookup("env", "AWS_ACCESS_KEY_ID") }}'
+        aws_secret_key: '{{ lookup("env", "AWS_SECRET_ACCESS_KEY") }}'
       register: ec2_instance
       loop: "{{ regions }}"
 
