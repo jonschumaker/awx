@@ -1,0 +1,48 @@
+---
+- name: Create EC2 Instance
+  hosts: localhost
+  gather_facts: False
+  vars:
+    regions: 
+      - us-east-1
+      - us-east-2
+    instance_type: "t2.micro"
+    ami_ids:
+      us-east-1:
+        - "ami-0261755bbcb8c4a84"
+      us-east-2:
+        - "ami-0430580de6244e02e"
+    key_name: "testing"
+    security_group: "sg-0e5c4af056257477e"
+    vpc_id: "MyVPC10"
+    subnet_ids: 
+      us-east-1: 
+        - "subnet-0771fbfa2e838a836"
+        - "subnet-006c966059cd19269"
+        - "subnet-0f6562d9c078e7f9e"
+      #us-east-2:
+        
+  tasks:
+    - name: create EC2 Instance
+      amazon.aws.ec2_instance:
+        region: "{{ item.region }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ item.image_id }}"
+        key_name: "{{ key_name }}"
+        vpc_subnet_id: "{{ item.subnet }}"
+        assign_public_ip: yes
+        security_groups: "{{ security_group }}"
+        wait: yes
+        count: "{{ instances_per_region }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      register: ec2_instance
+      loop:
+        - { region: "us-east-1", image_id: "{{ami_ids['us-east-1'][0]}}", subnet: "{{ subnet_ids['us-east-1'][0] }}" }
+        - { region: "us-east-1", image_id: "{{ami_ids['us-east-1'][0]}}", subnet: "{{ subnet_ids['us-east-1'][1] }}" }
+        - { region: "us-east-1", image_id: "{{ami_ids['us-east-1'][0]}}", subnet: "{{ subnet_ids['us-east-1'][2] }}" }
+        #- { region: "us-east-2", image_id: "{{ami_ids['us-east-2'][0]}}", subnet: "{{ subnet_ids['us-east-1'][0] }}" }
+
+    - name: Display EC2 Instance Information
+      debug:
+        var: ec2_instance.instances[0]
