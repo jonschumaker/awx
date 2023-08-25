@@ -1,7 +1,7 @@
 ---
 - name: Create Azure Virtual Machine
   hosts: localhost
-  connection: local
+  gather_facts: False
   tasks:
     - name: Set Azure credentials
       azure.azcollection.azure_rm_registrationdefinition:
