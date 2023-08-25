@@ -5,10 +5,10 @@
   tasks:
     - name: Set Azure credentials
       azure.azcollection.azure_rm_registrationdefinition:
-        subscription_id: "{{ AZURE_SUBSCRIPTION_ID }}"
-        client_id: "{{ AZURE_CLIENT_ID }}"
-        secret: "{{ AZURE_SECRET }}"
-        tenant: "{{ AZURE_TENANT }}"
+        client_id: '{{ lookup("env", "AZURE_CLIENT_ID") }}'
+        secret: '{{ lookup("env", "AZURE_SECRET") }}'
+        tenant: '{{ lookup("env", "AZURE_TENANT") }}'
+        subscription_id: '{{ lookup("env", "AZURE_SUBSCRIPTION_ID") }}'
       register: auth_result
 
     - name: Create resource group
